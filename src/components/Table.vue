@@ -2,29 +2,40 @@
 import "ag-grid-community/styles/ag-grid.css" // Core CSS
 import "ag-grid-community/styles/ag-theme-quartz.css" // Theme
 import { AgGridVue } from "ag-grid-vue3" // Vue Grid Logic
-import { ref } from 'vue'
+import axios from 'axios'
+import { onMounted, ref } from 'vue'
+
+const rowData = ref([])
 
 
+const getClietnsFromBackend = async () => {
+  const { data } = await axios.get('https://745031694d8e996f.mokky.dev/clients')
+  rowData.value = data
+}
 
-const rowData = ref([
-  { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-  { make: "Ford", model: "F-Series", price: 33850, electric: false },
-  { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-])
 
 const colDefs = ref([
-  { field: "make" },
-  { field: "model" },
-  { field: "price" },
-  { field: "electric" }
+  { field: 'id' },
+  { field: 'FullName' },
+  { field: 'Email' },
+  { field: 'County' },
+  { field: 'Phone' },
+  { field: 'County' },
+  { field: 'Birthday' }
 ])
 
 
+const columnHoverHighlight = true
 
+onMounted(() => {
+  getClietnsFromBackend()
+
+})
 
 </script>
 
 <template>
-  <ag-grid-vue style="height: 500px" class="ag-theme-quartz" :rowData="rowData" :columnDefs="colDefs">
+  <ag-grid-vue :columnHoverHighlight="columnHoverHighlight" style="height: 800px" class="ag-theme-quartz"
+    :rowData="rowData" :columnDefs="colDefs">
   </ag-grid-vue>
 </template>

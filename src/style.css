@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-	background-color: rgb(29, 29, 29);
+
+::-webkit-scrollbar {
+	width: 10px;
+
+}
+
+::-webkit-scrollbar-track {
+	background: rgb(31, 41, 55)
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgb(225, 29, 72);
+
+}
+
+body::-webkit-scrollbar {
+	width: 20px;
+
+}
+
+body::-webkit-scrollbar-track {
+	background: rgb(31, 41, 55)
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: rgb(225, 29, 72);
+
 }
