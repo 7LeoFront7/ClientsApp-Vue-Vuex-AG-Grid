@@ -55,7 +55,7 @@ const userNavigation = [
 									class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
 									<span class="absolute -inset-1.5" />
 									<span
-										class="absolute font-bold text-white bg-rose-600 p-2 rounded-full w-8 h-8 -top-3 left-5 text-xs">{{
+										class="absolute font-bold text-white bg-rose-600 p-2 rounded-full w-8 h-8 -top-2 left-5 text-xs">{{
 											store.state.countTables
 										}}</span>
 									<span class="sr-only">Open user menu</span>
@@ -69,8 +69,12 @@ const userNavigation = [
 								<MenuItems
 									class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 									<MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-									<a :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{
-										item.name }}</a>
+									<a :href="item.href"
+										:class="[active ? 'bg-gray-100 relative' : '', 'flex items-center relative px-4 py-2 text-sm text-gray-700']">{{
+											item.name }}<span
+											class="absolute flex items-center justify-center font-bold text-white bg-rose-600 p-2 rounded-full w-6 h-6 top-1 left-32 text-xs">{{
+												store.state.countTables
+											}}</span></a>
 									</MenuItem>
 								</MenuItems>
 							</transition>
