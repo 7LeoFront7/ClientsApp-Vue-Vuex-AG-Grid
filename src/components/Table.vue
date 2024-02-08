@@ -53,5 +53,5 @@ const showAlert = () => {
   </ag-grid-vue>
   <button @click='addIncrementCount(), showAlert()'
     class='bg-rose-600 mt-10 text-gray-300 hover:bg-rose-700 hover:text-white rounded-md px-4 py-3 text-md font-medium'>Сохранить
-    таблицу</button>
+    в профиль</button>
 </template>

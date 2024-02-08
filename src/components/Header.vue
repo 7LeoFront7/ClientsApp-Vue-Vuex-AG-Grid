@@ -1,7 +1,22 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { ref, watchEffect } from 'vue'
 import store from '../store'
+
+const message = ref(false)
+
+const newMessage = () => {
+	if (store.state.countTables > 0) {
+		message.value = true
+	} else {
+		message.value = false
+	}
+}
+
+watchEffect(() => {
+	newMessage()
+})
 
 const user = {
 	name: 'Назаров Максим',
@@ -11,11 +26,15 @@ const user = {
 }
 const navigation = [
 	{ name: 'Таблица клиентов', href: '#', current: true },
-	{ name: 'Команда', href: '#', current: false }
+	{ name: `Количество сохраненных Вами таблиц смотрите в профиле`, href: '#', current: false }
 ]
 const userNavigation = [
 	{ name: 'Мои таблицы', href: '#' }
 ]
+
+const alertTable = () => {
+	alert('Количество сохраненных таблиц: ' + store.state.countTables)
+}
 
 
 
@@ -54,7 +73,7 @@ const userNavigation = [
 								<MenuButton
 									class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
 									<span class="absolute -inset-1.5" />
-									<span
+									<span v-if="message"
 										class="absolute font-bold text-white bg-rose-600 p-2 rounded-full w-8 h-8 -top-2 left-5 text-xs">{{
 											store.state.countTables
 										}}</span>
@@ -69,7 +88,7 @@ const userNavigation = [
 								<MenuItems
 									class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 									<MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-									<a :href="item.href"
+									<a @click='alertTable' :href="item.href"
 										:class="[active ? 'bg-gray-100 relative' : '', 'flex items-center relative px-4 py-2 text-sm text-gray-700']">{{
 											item.name }}<span
 											class="absolute flex items-center justify-center font-bold text-white bg-rose-600 p-2 rounded-full w-6 h-6 top-1 left-32 text-xs">{{
@@ -117,9 +136,15 @@ const userNavigation = [
 					</button>
 				</div>
 				<div class="mt-3 space-y-1 px-2">
-					<DisclosureButton v-for="item in userNavigation" :key="item.name" as="a" :href="item.href"
-						class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">{{
-							item.name }}</DisclosureButton>
+					<DisclosureButton @click="alertTable" v-for="item in userNavigation" :key="item.name" as="a" :href="item.href"
+						class="block rounded-md px-3 py-2 text-base relative font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
+						{{
+							item.name }}
+						<span v-if="message"
+							class="absolute font-bold text-white bg-rose-600 p-2 rounded-full w-8 h-8 top-1 flex justify-center items-center left-32 text-xs">{{
+								store.state.countTables
+							}}</span>
+					</DisclosureButton>
 				</div>
 			</div>
 		</DisclosurePanel>
